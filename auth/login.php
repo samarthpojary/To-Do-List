@@ -33,17 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
   <div class="container" style="margin-top: 80px;">
-    <h1>Login</h1>
+    <h1><i class="fas fa-sign-in-alt"></i> Login</h1>
     <?php if ($error): ?>
-      <div class="error"><?= $error ?></div>
+      <div class="error"><i class="fas fa-exclamation-triangle"></i> <?= $error ?></div>
     <?php endif; ?>
     <form method="POST">
       <input type="text" name="username" required placeholder="Username" autocomplete="username">
       <input type="password" name="password" required placeholder="Password" autocomplete="current-password">
-      <button type="submit">Login</button>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
     </form>
     <div style="margin-top: 12px; color: var(--muted); font-size: 0.97em;">
-      Don't have an account? <a href="register.php" class="btn" style="background: none; color: var(--primary); padding: 0;">Register</a>
+      Don't have an account? <a href="register.php" class="btn" style="background: none; color: var(--primary); padding: 0;"><i class="fas fa-user-plus"></i> Register</a>
     </div>
   </div>
 </body>

@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$pass = 'Samarth@9019';
-$db = 'todo_db';
+$host = getenv('DB_HOST') ?: 'localhost';
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: '';
+$db = getenv('DB_NAME') ?: 'todo_db';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

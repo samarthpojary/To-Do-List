@@ -1,14 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
 :root {
   --primary: #4f8cff;
+  --primary-hover: #2563eb;
   --background: #f4f6fb;
   --card-bg: #fff;
   --text: #050404;
   --muted: #888;
   --danger: #ff4f4f;
+  --danger-hover: #d32f2f;
   --success: #4fcf7f;
   --border-radius: 12px;
   --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
+  --animation-bounce: bounce 0.6s ease;
+}
+
+.dark-mode {
+  --background: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --text: #e0e0e0;
+  --muted: #b0b0b0;
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.5);
 }
 * {
   box-sizing: border-box;
@@ -81,7 +97,11 @@ button:hover, .btn:hover {
   padding: 12px 16px;
   margin-bottom: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-  transition: box-shadow 0.2s;
+  transition: var(--transition);
+}
+.todo-item:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
 .todo-item.completed {
   opacity: 0.6;

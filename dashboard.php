@@ -5,7 +5,13 @@ if (!isset($_SESSION['user_id'])) header("Location: auth/login.php");
 
 $user_id = $_SESSION['user_id'];
 $csrf_token = $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-$tasks = $conn->query("SELECT * FROM tasks WHERE user_id=$user_id ORDER BY created_at DESC");
+$stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id=? ORDER BY created_at DESC");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$tasks = $stmt->get_result();
+
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +23,10 @@ $tasks = $conn->query("SELECT * FROM tasks WHERE user_id=$user_id ORDER BY creat
 </head>
 <body>
   <div class="container">
-    <h1>My To-Do List</h1>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+      <h1>My To-Do List</h1>
+      <button id="dark-mode-toggle" class="btn" style="background: var(--muted); color: var(--text); padding: 8px 12px;"><i class="fas fa-moon"></i></button>
+    </div>
     <form action="tasks/add.php" method="POST">
       <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
       <input name="task" required placeholder="New task">
@@ -45,9 +54,23 @@ $tasks = $conn->query("SELECT * FROM tasks WHERE user_id=$user_id ORDER BY creat
       <?php endwhile; ?>
     </ul>
     <div style="margin-top: 18px;">
-      <a href="export_excel.php" class="btn" style="background: var(--success); color: #fff; margin-right: 10px;">Export to Excel</a>
-      <a href="logout.php" class="btn" style="background: var(--danger); color: #fff;">Logout</a>
+      <a href="export_excel.php" class="btn" style="background: var(--success); color: #fff; margin-right: 10px;"><i class="fas fa-file-excel"></i> Export to Excel</a>
+      <a href="logout.php" class="btn" style="background: var(--danger); color: #fff;"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </div>
+  <script>
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+    const icon = toggleButton.querySelector('i');
+
+    toggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-sun';
+      } else {
+        icon.className = 'fas fa-moon';
+      }
+    });
+  </script>
 </body>
 </html>
