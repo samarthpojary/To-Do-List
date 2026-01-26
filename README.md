@@ -1,5 +1,6 @@
-# To-Do-List
-Excited to share my latest project - a clean, responsive todo application built with PHP, MySQL, and modern CSS. 
+<h2># To-Do-List</h2>
+<h3></h3>Excited to share my latest project -</h3>
+a clean, responsive todo application built with PHP, MySQL, and modern CSS. 
 ✨ Key Features:
 User authentication (login/register) with secure password hashing<br>
 Clean, card-based UI with modern design principles<br>
